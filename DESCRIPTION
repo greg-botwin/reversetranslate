@@ -1,13 +1,18 @@
 Package: reversetranslate
-Title: What the Package Does (One Line, Title Case)
+Title: Reverse Translate Amino Acid Sequences to Nucleotides
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Gregory",
+           family = "Botwin",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
+           email = "gbotwin@gmail.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Description: User supplies an amino acid sequence and optionally a codon usage
+frequency table to reverse translate to DNA or RNA nucleotides. Amino acids with 
+redundant codons are resolved by selection under a multinomial distribution 
+equal to a selected frequency table or by assuming uniform probabilities amongst
+the relevant codons. Users can also preferrentially limit the inclusion of rare
+codons and minimize GC content.
 License: What license it uses
 Encoding: UTF-8
 LazyData: true
