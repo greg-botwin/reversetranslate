@@ -1,5 +1,5 @@
 # Homo sapiens [gbpri]: 93487 CDS's (40662582 codons)
-# Downloaded from kazusa in Standard CodonFrequency format
+# Downloaded from kazusa in Standard Codon Frequency format
 AmAcid  Codon      Number    /1000     Fraction
 Gly     GGG    669768.00     16.47      0.00
 Gly     GGA    669873.00     16.47      0.00

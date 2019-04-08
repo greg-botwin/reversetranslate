@@ -13,11 +13,15 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
 Suggests: 
-    testthat
+    testthat,
+    knitr,
+    rmarkdown
 Imports: 
     dplyr,
     utils,
     tidytext,
     tokenizers,
     stringr,
-    magrittr
+    magrittr,
+    stats
+VignetteBuilder: knitr

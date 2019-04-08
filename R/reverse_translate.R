@@ -1,10 +1,11 @@
 #' Reverse translate amino acid Sequence to DNA nucleotides
 #'
-#' @param AA A character string for an amino acid(s).
-#' @param codon_tbl A propoerly formated Codon Frequency Table with the following
-#'  collumn names, c("Codon", "AA", "Prop"). The Prop column must be of type
+#' @param amino_acid_seq A character vector of representing amino acid(s).
+#' @param codon_tbl A properly formated Codon Frequency Table with the following
+#'  column names, c("codon", "aa", "prop"). The Prop column must be of type
 #'  numberic and all proportiosn between 0 and 1. The sum of each codons
-#'  proportion per amino acid equal roughly 1 (0.98 to 1.02 allowed).
+#'  proportion per amino acid equal roughly 1 (0.98 to 1.02 allowed). Please see
+#'  check_codon_table for more infomration.
 #' @param limit Numerical value set to restrict codons to proportions greater
 #' then the set limit. Must be between 0 and 0.49. Defaults to 0, no limit if
 #' not set. When limiting rare codons, the residual proportions are split
@@ -12,26 +13,26 @@
 #' @param model Either proportional, equal or gc_bias. if a limit is applied,
 #' the limit parameter will first be chosen over the gc correction
 #'
-#' @return character
+#' @return character vector representing reverse translated DNA nucleotide codons.
 #' @export
 #'
 #' @examples
 #'
-reverse_translate <- function(aa, codon_tbl, limit = 0, model = "proportional") {
+reverse_translate <- function(amino_acid_seq, codon_tbl, limit = 0, model = "proportional") {
 
   # check amino acid sequence is a character string
-  if(typeof(aa) != "character") {
+  if(typeof(amino_acid_seq) != "character") {
     stop("Amino acid sequence must be of type character")
   }
 
-  # check if single aa or string
-  if(nchar(aa) == 1) {
+  # check if single amino_acid_seq or string
+  if(nchar(amino_acid_seq) == 1) {
     string <- "single"
   }
   else{string <- "multi"}
 
   # check codon table
-  check_codon_table(codon_tbl = codon_tbl)
+  codon_tbl <- check_codon_table(codon_tbl = codon_tbl)
 
   # check limit
   check_limit(codon_tbl = codon_tbl, limit = limit)
@@ -45,38 +46,41 @@ reverse_translate <- function(aa, codon_tbl, limit = 0, model = "proportional") 
   if(string == "single") {
 
     # check amino acid in freq table
-    if((aa %in% codon_tbl$AA) == FALSE) {
+    if((amino_acid_seq %in% codon_tbl$aa) == FALSE) {
       stop("Amino acid not found in selected codon table")
     }
 
     # define codon options
     options <- codon_tbl %>%
-      dplyr::filter(Prop >= limit) %>%
-      dplyr::filter(AA == aa)
+      dplyr::filter(prop >= limit) %>%
+      dplyr::filter(aa == amino_acid_seq)
 
-    select_codon(options = options, model = model)
+
+    result <- select_codon(options = options, model = model)
+    return(result)
 
   }
 
   # reverse translate multi character
   if(string == "multi") {
 
-    # break apart string into individual aa
-    amino_acids <- tokenizers::tokenize_characters(aa, lowercase = FALSE)[[1]]
+    # break apart string into individual amino_acid_seq
+    amino_acids <- tokenizers::tokenize_characters(amino_acid_seq, lowercase = FALSE)[[1]]
 
-    # check all aa in table
-    if(!all(unique(amino_acids) %in% unique(codon_tbl$AA))) {
+    # check all amino_acid_seq in table
+    if(!all(unique(amino_acids) %in% unique(codon_tbl$aa))) {
       stop("Not all amino acids found in selected codon table")
     }
 
-    codons <- lapply(amino_acids, function(x) {
+    selected_codons <- lapply(amino_acids, function(x) {
       options <- codon_tbl %>%
-        dplyr::filter(Prop >= limit) %>%
-        dplyr::filter(AA == x)
+        dplyr::filter(prop >= limit) %>%
+        dplyr::filter(aa == x)
 
       select_codon(options = options, model = model)
     })
-    paste0(unlist(codons), collapse = "")
+    result <- paste0(unlist(selected_codons), collapse = "")
+    return(result)
   }
 }
 
@@ -84,56 +88,60 @@ select_codon <- function(options, model) {
 
   # proportional model
   if(model == "proportional") {
+
     ## calcualte missing prop and add equally
     ## rmultionom distribution based on provided prop
     ## select 1 row
 
-    missing_prop <- (1 - sum(options$Prop))/nrow(options)
-    options <- options %>%
-      dplyr::mutate(updated_prop = Prop + missing_prop) %>%
-      dplyr::mutate(select = c(rmultinom(n = 1, size = 1, prob = updated_prop))) %>%
+    missing_prop <- (1 - sum(options$prop))/nrow(options)
+
+    selected_codon <- options %>%
+      dplyr::mutate(updated_prop = prop + missing_prop) %>%
+      dplyr::mutate(select = c(stats::rmultinom(n = 1, size = 1, prob = updated_prop))) %>%
       dplyr::filter(select == 1) %>%
-      dplyr::select(Codon) %>%
+      dplyr::select(codon) %>%
       unlist() %>%
       as.character()
 
-    return(options)
+    return(selected_codon)
 
   }
 
   if(model == "equal") {
     ## assign each remaining codon option equal prop
-    options <- options %>%
+    selected_codon <- options %>%
       dplyr::mutate(updated_prop = 1/nrow(options)) %>%
-      dplyr::mutate(select = c(rmultinom(n = 1, size = 1, prob = updated_prop))) %>%
+      dplyr::mutate(select = c(stats::rmultinom(n = 1, size = 1, prob = updated_prop))) %>%
       dplyr::filter(select == 1) %>%
-      dplyr::select(Codon) %>%
+      dplyr::select(codon) %>%
       unlist() %>%
       as.character()
 
-    return(options)
+    return(selected_codon)
+
   }
 
   if(model == "gc_biased") {
     options <- options %>%
-      dplyr::mutate(gc_count = stringr::str_count(Codon, "G|C")) %>%
-      dplyr::group_by(AA) %>%
+      dplyr::mutate(gc_count = stringr::str_count(codon, "G|C")) %>%
+      dplyr::group_by(aa) %>%
       dplyr::mutate(gc_content = if_else(gc_count == min(gc_count), "min",
                                          if_else(gc_count == max(gc_count), "max", "med"))) %>%
       dplyr::ungroup() %>%
       dplyr::filter(gc_content == "min")
 
-    missing_prop <- (1 - sum(options$Prop))/nrow(options)
+    missing_prop <- (1 - sum(options$prop))/nrow(options)
 
-    options <- options %>%
-      dplyr::mutate(updated_prop = Prop + missing_prop) %>%
-      dplyr::mutate(select = c(rmultinom(n = 1, size = 1, prob = updated_prop))) %>%
+    selected_codon <- options %>%
+      dplyr::mutate(updated_prop = prop + missing_prop) %>%
+      dplyr::mutate(select = c(stats::rmultinom(n = 1, size = 1, prob = updated_prop))) %>%
       dplyr::filter(select == 1) %>%
-      dplyr::select(Codon) %>%
+      dplyr::select(codon) %>%
       unlist() %>%
       as.character()
 
-    return(options)
+    return(selected_codon)
+
   }
 }
 

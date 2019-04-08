@@ -4,25 +4,28 @@
 \alias{reverse_translate}
 \title{Reverse translate amino acid Sequence to DNA nucleotides}
 \usage{
-reverse_translate(aa, codon_tbl, limit = 0, model)
+reverse_translate(amino_acid_seq, codon_tbl, limit = 0,
+  model = "proportional")
 }
 \arguments{
-\item{codon_tbl}{A propoerly formated Codon Frequency Table with the following
-collumn names, c("Codon", "AA", "Prop"). The Prop column must be of type
+\item{amino_acid_seq}{A character vector of representing amino acid(s).}
+
+\item{codon_tbl}{A properly formated Codon Frequency Table with the following
+column names, c("codon", "aa", "prop"). The Prop column must be of type
 numberic and all proportiosn between 0 and 1. The sum of each codons
-proportion per amino acid equal roughly 1 (0.98 to 1.02 allowed).}
+proportion per amino acid equal roughly 1 (0.98 to 1.02 allowed). Please see
+check_codon_table for more infomration.}
 
 \item{limit}{Numerical value set to restrict codons to proportions greater
 then the set limit. Must be between 0 and 0.49. Defaults to 0, no limit if
 not set. When limiting rare codons, the residual proportions are split
 equally amongst the remaining codon options.}
 
-\item{model}{Either proportional, equal or gc_bias}
-
-\item{AA}{A character string of amino acids.}
+\item{model}{Either proportional, equal or gc_bias. if a limit is applied,
+the limit parameter will first be chosen over the gc correction}
 }
 \value{
-character
+character vector representing reverse translated DNA nucleotide codons.
 }
 \description{
 Reverse translate amino acid Sequence to DNA nucleotides

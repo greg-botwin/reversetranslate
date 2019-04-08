@@ -1,0 +1,92 @@
+---
+title: "reverse_translate"
+author: "Greg Botwin"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{reverse_translate}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(reversetranslate)
+```
+
+## Proportional
+```{r}
+minimal_freq_tbl
+```
+For amino acid, assuming a proportional model, we would expect the proportion of AAA codons to be approximately equal the proportion of GGG codons and to be twice as large as the proportion of CCC codons. Let simulate to confirm. 
+ 
+```{r, message=FALSE}
+set.seed(1234)
+codons <- replicate(1000, {
+  reverse_translate(amino_acid_seq = "X", codon_tbl = minimal_freq_tbl,
+                    limit = 0, model = "proportional")
+})
+
+table(codons)
+```
+
+Lets See if This Holds True for an Amino Acid Sequence
+```{r, message=FALSE}
+codon_string <- replicate(1000, {
+  reverse_translate(amino_acid_seq = minimal_aa_seq, codon_tbl = minimal_freq_tbl,
+                    limit = 0 , model = "proportional")
+})
+
+df <- dplyr::data_frame(codon_string = codon_string)
+df %>%
+  dplyr::mutate("AAA_count" = stringr::str_count(codon_string, "AAA")) %>%
+  dplyr::mutate("TTT_count" = stringr::str_count(codon_string, "TTT")) %>%
+  dplyr::mutate("GGG_count" = stringr::str_count(codon_string, "GGG")) %>%
+  dplyr::mutate("CCC_count" = stringr::str_count(codon_string, "CCC")) %>%
+  dplyr::summarise(mean_AAA = mean(AAA_count),
+            mean_TTT = mean(TTT_count),
+            mean_GGG = mean(GGG_count),
+            mean_CCC = mean(CCC_count)
+            )
+```
+
+## Equal Model
+```{r, message=FALSE}
+set.seed(1234)
+codons <- replicate(10000, {
+  reverse_translate(amino_acid_seq = "X", codon_tbl = minimal_freq_tbl,
+                    limit = 0, model = "equal")
+})
+
+table(codons)
+```
+
+##  GC Biased
+```{r}
+nod2_txt
+```
+
+```{r, message=FALSE}
+set.seed(1234)
+nod2_nt_prop <- reverse_translate(amino_acid_seq = nod2_txt, codon_tbl = hsapien_tbl, limit = 0,
+                  model = "proportional")
+
+
+tokenizers::tokenize_characters(nod2_nt_prop, lowercase = FALSE) %>%
+  table()
+
+
+set.seed(1234)
+nod2_nt_low_gc <- reverse_translate(amino_acid_seq = nod2_txt, codon_tbl = hsapien_tbl, limit = 0,
+                  model = "gc_biased")
+
+tokenizers::tokenize_characters(nod2_nt_low_gc, lowercase = FALSE) %>%
+  table()
+```
+
