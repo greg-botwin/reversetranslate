@@ -30,7 +30,7 @@ hsapien_tbl <- hsapien_tbl %>%
 
 usethis::use_data(hsapien_tbl, overwrite = TRUE)
 
-# minimum codon freq table
+# minimum codon freq table simple tests
 minimum_freq_tbl <- data.frame("Codon" = c("AAA", "GGG", "CCC", "TTT"),
                                "AA" = c("X", "X", "X", "Y"),
                                "Prop" = c(0.4, 0.4, 0.2, 1),
@@ -38,7 +38,7 @@ minimum_freq_tbl <- data.frame("Codon" = c("AAA", "GGG", "CCC", "TTT"),
 
 usethis::use_data(minimum_freq_tbl, overwrite = TRUE)
 
-# mimimum amino acid sequence
+# mimimum amino acid sequence for simple tests
 minimum_aa_seq <- c("XXXYXXXYY")
 
 usethis::use_data(minimum_aa_seq, overwrite = TRUE)

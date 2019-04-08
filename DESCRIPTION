@@ -19,4 +19,5 @@ Imports:
     utils,
     tidytext,
     tokenizers,
-    stringr
+    stringr,
+    magrittr
