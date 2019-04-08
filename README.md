@@ -7,28 +7,22 @@
 
 [![Travis build
 status](https://travis-ci.org/greg-botwin/reversetranslate.svg?branch=master)](https://travis-ci.org/greg-botwin/reversetranslate)
-[![AppVeyor build
-status](https://ci.appveyor.com/api/projects/status/github/r-lib/usethis?branch=master&svg=true)](https://ci.appveyor.com/project/r-lib/usethis)
 [![Codecov test
-coverage](https://codecov.io/gh/r-lib/usethis/branch/master/graph/badge.svg)](https://codecov.io/gh/r-lib/usethis?branch=master)
+coverage](https://codecov.io/gh/greg-botwin/reversetranslate/branch/master/graph/badge.svg)](https://codecov.io/gh/greg-botwin/reversetranslate?branch=master)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/reversetranslate)](https://cran.r-project.org/package=reversetranslate)
 <!-- badges: end -->
 
-The goal of reversetranslate is to …
+The goal of reversetranslate is to provide a set of R functions to
+assist users in reverse translating an amino acid sequence to DNA
+nucleotides.
 
 ## Installation
 
-You can install the released version of reversetranslate from
-[CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("reversetranslate")
-```
-
-And the development version from [GitHub](https://github.com/) with:
+You can install the development version from
+[GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
