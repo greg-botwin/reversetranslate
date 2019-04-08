@@ -20,6 +20,8 @@ knitr::opts_chunk$set(
 library(reversetranslate)
 ```
 
+
+
 ## Proportional
 ```{r}
 minimal_freq_tbl
@@ -28,7 +30,7 @@ For amino acid, assuming a proportional model, we would expect the proportion of
  
 ```{r, message=FALSE}
 set.seed(1234)
-codons <- replicate(1000, {
+codons <- replicate(100, {
   reverse_translate(amino_acid_seq = "X", codon_tbl = minimal_freq_tbl,
                     limit = 0, model = "proportional")
 })
@@ -38,7 +40,7 @@ table(codons)
 
 Lets See if This Holds True for an Amino Acid Sequence
 ```{r, message=FALSE}
-codon_string <- replicate(1000, {
+codon_string <- replicate(100, {
   reverse_translate(amino_acid_seq = minimal_aa_seq, codon_tbl = minimal_freq_tbl,
                     limit = 0 , model = "proportional")
 })
@@ -59,7 +61,7 @@ df %>%
 ## Equal Model
 ```{r, message=FALSE}
 set.seed(1234)
-codons <- replicate(10000, {
+codons <- replicate(100, {
   reverse_translate(amino_acid_seq = "X", codon_tbl = minimal_freq_tbl,
                     limit = 0, model = "equal")
 })

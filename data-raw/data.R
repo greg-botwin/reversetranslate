@@ -31,9 +31,9 @@ hsapien_tbl <- hsapien_tbl %>%
 usethis::use_data(hsapien_tbl, overwrite = TRUE)
 
 # minimum codon freq table simple tests
-minimal_freq_tbl <- data.frame("Codon" = c("AAA", "GGG", "CCC", "TTT"),
-                               "AA" = c("X", "X", "X", "Y"),
-                               "Prop" = c(0.4, 0.4, 0.2, 1),
+minimal_freq_tbl <- data.frame("codon" = c("AAA", "GGG", "CCC", "TTT"),
+                               "aa" = c("X", "X", "X", "Y"),
+                               "prop" = c(0.4, 0.4, 0.2, 1),
                                stringsAsFactors = FALSE)
 
 usethis::use_data(minimal_freq_tbl, overwrite = TRUE)

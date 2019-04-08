@@ -125,8 +125,8 @@ select_codon <- function(options, model) {
     options <- options %>%
       dplyr::mutate(gc_count = stringr::str_count(codon, "G|C")) %>%
       dplyr::group_by(aa) %>%
-      dplyr::mutate(gc_content = if_else(gc_count == min(gc_count), "min",
-                                         if_else(gc_count == max(gc_count), "max", "med"))) %>%
+      dplyr::mutate(gc_content = dplyr::if_else(gc_count == min(gc_count), "min",
+                                         dplyr::if_else(gc_count == max(gc_count), "max", "med"))) %>%
       dplyr::ungroup() %>%
       dplyr::filter(gc_content == "min")
 

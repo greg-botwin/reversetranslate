@@ -6,9 +6,9 @@
 \title{A minimal Codon Frequency Table designed for tests.}
 \format{A data frame with 4 rows and 3 variables:
 \describe{
-  \item{AA}{One letter abbreviation of the amino acid or * for Stop}
-  \item{Codon}{Three DNA nucletodies representing the amino acid.}
-  \item{AA}{The proportion the specific codon is present in the genome)}
+  \item{aa}{One letter abbreviation of the amino acid or * for Stop}
+  \item{codon}{Three DNA nucletodies representing the amino acid.}
+  \item{prop}{The proportion the specific codon is present in the genome)}
 }}
 \usage{
 minimal_freq_tbl

@@ -22,7 +22,7 @@
 #' \describe{
 #'   \item{AA}{One letter abbreviation of the amino acid or * for Stop}
 #'   \item{Codon}{Three DNA nucletodies representing the amino acid.}
-#'   \item{AA}{The proportion the specific codon is present in the genome)}
+#'   \item{Prop}{The proportion the specific codon is present in the genome)}
 #' }
 #' @source \url{https://www.kazusa.or.jp/codon/cgi-bin/showcodon.cgi?species=9606}
 #'
@@ -35,9 +35,9 @@
 #'
 #' @format A data frame with 4 rows and 3 variables:
 #' \describe{
-#'   \item{AA}{One letter abbreviation of the amino acid or * for Stop}
-#'   \item{Codon}{Three DNA nucletodies representing the amino acid.}
-#'   \item{AA}{The proportion the specific codon is present in the genome)}
+#'   \item{aa}{One letter abbreviation of the amino acid or * for Stop}
+#'   \item{codon}{Three DNA nucletodies representing the amino acid.}
+#'   \item{prop}{The proportion the specific codon is present in the genome)}
 #' }
 #'
 "minimal_freq_tbl"
