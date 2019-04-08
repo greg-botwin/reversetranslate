@@ -4,7 +4,7 @@
 # reversetranslate
 
 [![Travis build
-status](https://travis-ci.org/r-lib/usethis.svg?branch=master)](https://travis-ci.org/r-lib/usethis)
+status](https://travis-ci.org/greg-botwin/reversetranslate.svg?branch=master)](https://travis-ci.org/greg-botwin/reversetranslate)
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/r-lib/usethis?branch=master&svg=true)](https://ci.appveyor.com/project/r-lib/usethis)
 [![Codecov test
