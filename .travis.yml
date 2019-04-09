@@ -8,7 +8,8 @@ r:
  - oldrel
  - release
  - devel
- - bioc-release
+
+use_bioc: true
 
 # Only report coverage for the release version
 after_success:
