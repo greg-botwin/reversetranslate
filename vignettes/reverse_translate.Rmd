@@ -19,7 +19,35 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(reversetranslate)
 ```
+With the increase use of synthetic biology applications researchers might want to derive a DNA nucleotide sequence from a pre-specified amino acid sequence. This package is designed to assist you in such an application.
 
+## Amino Acid Sequence(s) for Translation
+The user must supply the amino acid sequence you want to reverse translate. The sequence must exist as a `character` vector and the individual amino acids must be written in a way that match the amino acids listed in your selected Codon Frequency Table. If you wish to reverse translate multiple amino acid seqeunces under the same conditions store them all in a single `list` and pass them to the 
+
+### Text File
+### Fasta File
+### Biostrings
+
+## Codon Frequency Table
+### Format
+### Supplied Codon Frequency Tables
+### Building Your Own Codon Frequency Table 
+
+## Reverse Translation
+### Models of Translation
+### Assigning a Codon Frequency Limit
+### Running Reverse Translation on Multiple Amino Acid Sequences
+#### Using `base::lapply`
+#### Using `purrr:map`
+#### Using the `futures` package and multiple cores
+
+
+### Load Amino Acid from Desired Protein
+
+
+```{r}
+
+```
 
 
 ## Proportional
@@ -28,7 +56,7 @@ minimal_freq_tbl
 ```
 For amino acid, assuming a proportional model, we would expect the proportion of AAA codons to be approximately equal the proportion of GGG codons and to be twice as large as the proportion of CCC codons. Let simulate to confirm. 
  
-```{r, message=FALSE}
+```{r, message=FALSE, cache=TRUE}
 set.seed(1234)
 codons <- replicate(100, {
   reverse_translate(amino_acid_seq = "X", codon_tbl = minimal_freq_tbl,
@@ -39,7 +67,7 @@ table(codons)
 ```
 
 Lets See if This Holds True for an Amino Acid Sequence
-```{r, message=FALSE}
+```{r, message=FALSE, cah}
 codon_string <- replicate(100, {
   reverse_translate(amino_acid_seq = minimal_aa_seq, codon_tbl = minimal_freq_tbl,
                     limit = 0 , model = "proportional")
