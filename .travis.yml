@@ -20,9 +20,6 @@ branches:
   only:
     - master
 
-r_binary_packages:
-  - testthat
-
 bioc_packages:
   - Biostrings
 
