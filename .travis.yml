@@ -22,6 +22,7 @@ branches:
 
 bioc_packages:
   - Biostrings
+  - BiocManager
 
 # Only report coverage for the release version
 after_success:
