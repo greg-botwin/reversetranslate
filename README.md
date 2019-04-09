@@ -15,49 +15,73 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 status](https://www.r-pkg.org/badges/version/reversetranslate)](https://cran.r-project.org/package=reversetranslate)
 <!-- badges: end -->
 
-The goal of reversetranslate is to provide a set of R functions to
+The goal of `reversetranslate` is to provide a set of R functions to
 assist users in reverse translating an amino acid sequence to DNA
 nucleotides.
 
 ## Installation
 
 You can install the development version from
-[GitHub](https://github.com/) with:
+[GitHub](https://github.com/greg-botwin/reversetranslate) with:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("greg-botwin/reversetranslate")
 ```
 
+## General Details
+
+Users can supply their own Codon Frequency Table relevant to the
+organism they are most interested in simulating the reverse translation
+in or use one of the commonly desired options supplied. Users can also
+select between three different models of reverse translation
+(e.g. proportional, equal, or GC biased) depending on what assumptions
+you want to make regarding how redundant codons are chosen and your
+intended application. The user can also choose to limit the inclusion of
+low frequency codons into the reverse translated nucleotide sequence.
+
+The package currently maintains Codon Frequency Tables for:
+
+  - Homo sapiens
+  - Escherichia coli
+
+Other Codon Frequency Tables can be built from your organism of choice
+using the `build_codon_tbl` function.
+
+Additional details on package functionality can be found by viewing the
+package vignette.
+
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+### Load Package
 
 ``` r
 library(reversetranslate)
-## basic example code
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+### Example Amino Acid Sequence
 
 ``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
+minimal_aa_seq
+#> [1] "XXXYXXXYY"
 ```
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date.
+### Example Codon Frequency Table
 
-You can also embed plots, for example:
+``` r
+minimal_freq_tbl
+#>   Codon AA Prop
+#> 1   AAA  X  0.4
+#> 2   GGG  X  0.4
+#> 3   CCC  X  0.2
+#> 4   TTT  Y  1.0
+```
 
-<img src="man/figures/README-pressure-1.png" width="100%" />
+### Example Reverse Translation
 
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub\!
+``` r
+reverse_translate(amino_acid_seq = minimal_aa_seq, codon_tbl = minimal_freq_tbl,
+                  limit = 0, model = "proportional")
+#> Properly formated Codon Frequency Table
+#> [1] "CCCCCCCCCTTTAAAAAACCCTTTTTT"
+```
