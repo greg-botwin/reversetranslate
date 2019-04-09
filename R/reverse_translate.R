@@ -72,13 +72,13 @@ reverse_translate <- function(amino_acid_seq, codon_tbl, limit = 0, model = "pro
       stop("Not all amino acids found in selected codon table")
     }
 
-    selected_codons <- lapply(amino_acids, function(x) {
+    selected_codons <- vapply(amino_acids, function(x) {
       options <- codon_tbl %>%
         dplyr::filter(prop >= limit) %>%
         dplyr::filter(aa == x)
 
       select_codon(options = options, model = model)
-    })
+    }, FUN.VALUE = character(1))
     result <- paste0(unlist(selected_codons), collapse = "")
     return(result)
   }

@@ -24,7 +24,8 @@ Imports:
     tokenizers,
     stringr,
     magrittr,
-    stats
+    stats,
+    Biostrings
 VignetteBuilder: knitr
 Depends: 
     R (>= 3.1)
