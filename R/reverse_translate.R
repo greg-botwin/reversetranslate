@@ -15,9 +15,6 @@
 #'
 #' @return character vector representing reverse translated DNA nucleotide codons.
 #' @export
-#'
-#' @examples
-#'
 reverse_translate <- function(amino_acid_seq, codon_tbl, limit = 0, model = "proportional") {
 
   # check amino acid sequence is a character string

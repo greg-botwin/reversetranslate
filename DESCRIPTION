@@ -16,7 +16,9 @@ Suggests:
     testthat,
     knitr,
     rmarkdown,
-    covr
+    covr,
+    BiocManager,
+    Biostrings
 Imports: 
     dplyr,
     utils,
@@ -25,7 +27,7 @@ Imports:
     stringr,
     magrittr,
     stats,
-    Biostrings
+    tidyr
 VignetteBuilder: knitr
 Depends: 
     R (>= 3.1)

@@ -1,34 +1,23 @@
 library(dplyr)
 
-# example text amino acid sequence for nod2
-nod2_txt <- utils::read.delim("data-raw/Q9HC29.fasta", comment.char = ">",
-                       stringsAsFactors = FALSE, header = FALSE)
-
-nod2_txt <- nod2_txt$V1 %>%
-  paste0(collapse = "")
-
-usethis::use_data(nod2_txt, overwrite = TRUE)
-
 # amino acid naming
 aa_names <- utils::read.csv("data-raw/aa_naming.txt", comment.char = "#",
-                            header = FALSE, col.names = c("Name", "Abr", "AA"),
+                            header = FALSE, col.names = c("Name", "Abr", "AA", "Codon"),
                             stringsAsFactors = FALSE)
 
 usethis::use_data(aa_names, overwrite = TRUE)
 
-# prepare human codon table table
-hsapien_tbl <- utils::read.table("data-raw/hsapien.txt", comment.char = "#",
-                                 header = TRUE, stringsAsFactors = FALSE)
-
-hsapien_tbl <- hsapien_tbl %>%
-  dplyr::group_by(AmAcid) %>%
-  dplyr::mutate(total = sum(Number)) %>%
-  dplyr::ungroup() %>%
-  dplyr::mutate(Prop = Number/total) %>%
-  dplyr::left_join(., aa_names, by = c("AmAcid" = "Abr")) %>%
-  dplyr::select(AA, Prop, Codon)
+# prepare human codon table HIVE
+hsapien_tbl <- reversetranslate::build_hive_codon_tbl("data-raw/hsapien_hive.txt",
+                                                           skip = 2, 78580607)
 
 usethis::use_data(hsapien_tbl, overwrite = TRUE)
+
+# prepare E coli table HIVE
+ecoli_tbl <- reversetranslate::build_hive_codon_tbl("data-raw/ecoli_hive.txt",
+                                                      skip = 2, 17506389367)
+
+usethis::use_data(ecoli_tbl, overwrite = TRUE)
 
 # minimum codon freq table simple tests
 minimal_freq_tbl <- data.frame("codon" = c("AAA", "GGG", "CCC", "TTT"),

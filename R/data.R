@@ -1,32 +1,17 @@
-#' Names and abbreviations for the 20 standard proteinogenic amino acids plus stop codon.
+#' Names, abbreviations and codons, for the 20 standard proteinogenic amino acids plus stop codon.
 #'
-#' A dataset containing the full name, three letter abreviation, and single letter
-#'  abbreviation for the 20 standard proteinogenic amino acids plus Stop.
+#' A dataset containing the full name, three letter abreviation, single letter
+#'  abbreviationand codon for the 20 standard proteinogenic amino acids plus Stop.
 #'
-#' @format A data frame with 21 rows and 3 variables:
+#' @format A data frame with 64 rows and 4 variables:
 #' \describe{
 #'   \item{Name}{Name of the amino acid or Stop}
 #'   \item{Abr}{Three letter abbreviation of the amino acid or End for Stop}
 #'   \item{AA}{One letter abbreviation of the amino acid or * for Stop}
+#'   \item{Codon}{Three nucleotide (A,G,C,T only) codon for the assigned amino acid.}
 #' }
 #'
 "aa_names"
-
-#' A default Codon Frequency Table for translation in homo-sapiens.
-#'
-#' A dataset containing the human amino acid single letter abbreviations, each
-#' amino acids respective codon, and the proportion that codon is present in the
-#' indicated homo-sapien genome.
-#'
-#' @format A data frame with 64 rows and 3 variables:
-#' \describe{
-#'   \item{AA}{One letter abbreviation of the amino acid or * for Stop}
-#'   \item{Codon}{Three DNA nucletodies representing the amino acid.}
-#'   \item{Prop}{The proportion the specific codon is present in the genome)}
-#' }
-#' @source \url{https://www.kazusa.or.jp/codon/cgi-bin/showcodon.cgi?species=9606}
-#'
-"hsapien_tbl"
 
 #' A minimal Codon Frequency Table designed for tests.
 #'
@@ -50,16 +35,29 @@
 #'
 "minimal_aa_seq"
 
-#' The amino acid sequence for the human protein Nucleotide-binding oligomerization
-#' domain-containing protein 2 (NOD2).
+#' An Homo Sapien Codon Frequency Table.
 #'
-#' A cannonical amino acid sequence of the human protein Nucleotide-binding
-#' oligomerization domain-containing protein 2 (NOD2), downloaded from the
-#' UniProtKB/Swiss-Prot database.
+#'Built from HIVE Homo sapiens (9606) Codon Usage Table
 #'
-#' @format #' A character vector of the amino acid sequence for the NOD2 protein
-#' protein sequence comprised of 1040 amino acids.
+#' @format A data frame with 4 rows and 3 variables:
+#' \describe{
+#'   \item{aa}{One letter abbreviation of the amino acid or * for Stop}
+#'   \item{codon}{Three DNA nucletodies representing the amino acid.}
+#'   \item{prop}{The proportion the specific codon is present in the genome)}
+#' }
 #'
-#' @source \url{https://www.uniprot.org/uniprot/Q9HC29.fasta}
+"hsapien_tbl"
+
+#' An Escherichia coli Codon Frequency Table.
 #'
-"nod2_txt"
+#' Built from HIVE Escherichia coli (562) Codon Usage Table
+#'
+#' @format A data frame with 4 rows and 3 variables:
+#' \describe{
+#'   \item{aa}{One letter abbreviation of the amino acid or * for Stop}
+#'   \item{codon}{Three DNA nucletodies representing the amino acid.}
+#'   \item{prop}{The proportion the specific codon is present in the genome)}
+#' }
+#'
+"ecoli_tbl"
+

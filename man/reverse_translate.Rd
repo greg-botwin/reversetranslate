@@ -30,6 +30,3 @@ character vector representing reverse translated DNA nucleotide codons.
 \description{
 Reverse translate amino acid Sequence to DNA nucleotides
 }
-\examples{
-
-}

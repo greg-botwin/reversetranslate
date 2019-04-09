@@ -3,18 +3,19 @@
 \docType{data}
 \name{aa_names}
 \alias{aa_names}
-\title{Names and abbreviations for the 20 standard proteinogenic amino acids plus stop codon.}
-\format{A data frame with 21 rows and 3 variables:
+\title{Names, abbreviations and codons, for the 20 standard proteinogenic amino acids plus stop codon.}
+\format{A data frame with 64 rows and 4 variables:
 \describe{
   \item{Name}{Name of the amino acid or Stop}
   \item{Abr}{Three letter abbreviation of the amino acid or End for Stop}
   \item{AA}{One letter abbreviation of the amino acid or * for Stop}
+  \item{Codon}{Three nucleotide (A,G,C,T only) codon for the assigned amino acid.}
 }}
 \usage{
 aa_names
 }
 \description{
-A dataset containing the full name, three letter abreviation, and single letter
- abbreviation for the 20 standard proteinogenic amino acids plus Stop.
+A dataset containing the full name, three letter abreviation, single letter
+ abbreviationand codon for the 20 standard proteinogenic amino acids plus Stop.
 }
 \keyword{datasets}

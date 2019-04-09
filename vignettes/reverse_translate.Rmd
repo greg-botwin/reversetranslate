@@ -27,14 +27,14 @@ With the increase use of synthetic biology applications researchers might want t
 The user must supply the amino acid sequence you want to reverse translate. The sequence must exist as a `character` vector and the individual amino acids must be written in a way that match the amino acids listed in your selected Codon Frequency Table. If you wish to reverse translate multiple amino acid seqeunces under the same conditions store them all in a single `list` and pass them to `reverse_translate` using one of the iterative functions described in more detail below. 
 
 ### Download Protein Amino Acid Sequence
-An excellent source of protein amino acid sequences is the [UniProtKB/Swiss-Prot](https://www.uniprot.org/uniprot/?query=reviewed:yes). To reduce redundancy this UniProtKB reports a cannonical sequence based on the following criteria:
+An excellent source of protein amino acid sequences is the [UniProtKB/Swiss-Prot](https://www.uniprot.org/uniprot/?query=reviewed:yes). To reduce redundancy UniProtKB reports a cannonical sequence based on the following criteria:
 
 1. It is the most prevalent.
 2. It is the most similar to orthologous sequences found in other species.3.
 3. By virtue of its length or amino acid composition, it allows the clearest description of domains, isoforms, polymorphisms, post-translational modifications, etc.
 4. In the absence of any information, we choose the longest sequence.
 
-Protein and nucleotide strings are often stored in a .FASTA file format. You can learn more aout FASTA format [here](http://genetics.bwh.harvard.edu/pph/FASTA.html). Below we will read in the amino acid sequence for the human protein Nucleotide-binding oligomerization domain-containing protein 2 using both base R and the very helpful Bioconductor Biostrings [@R-Biostrings] package.
+Protein and nucleotide strings are often stored in a .FASTA file format. You can learn more aout FASTA format [here](http://genetics.bwh.harvard.edu/pph/FASTA.html). Below we will read in the amino acid sequence for the human protein Nucleotide-binding oligomerization domain-containing protein 2 (NOD2) using both base R and the very helpful Bioconductor Biostrings [@R-Biostrings] package.
 
 ```{r}
 download.file(url = "https://www.uniprot.org/uniprot/Q9HC29.fasta", 
@@ -54,9 +54,13 @@ nod2_txt <- nod2_txt$V1 %>%
 ### Read FASTA Biostrings
 ```{r}
 # Install Bioconductor Installer and Biostrings Pakcage if Needed
-if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-BiocManager::install("Biostrings", version = "3.8", quietly = TRUE, update = FALSE)
+ if (!requireNamespace("BiocManager", quietly = TRUE)) {
+       install.packages("BiocManager")
+ }
+ if (!requireNamespace("Biostrings", quietly = TRUE)) {
+       BiocManager::install("Biostrings", version = "3.8")
+ }
+library(Biostrings)
 
 # read with Biostrings
 nod2_bs <- Biostrings::readAAStringSet("NOD2.FASTA")
@@ -64,8 +68,12 @@ nod2_bs <- Biostrings::readAAStringSet("NOD2.FASTA")
 ```
 
 ## Codon Frequency Table
+[@Athey2017]
+
 ### Format
+
 ### Supplied Codon Frequency Tables
+
 ### Building Your Own Codon Frequency Table 
 
 ## Reverse Translation
@@ -76,7 +84,7 @@ minimal_freq_tbl
 ```
 For amino acid, assuming a proportional model, we would expect the proportion of AAA codons to be approximately equal the proportion of GGG codons and to be twice as large as the proportion of CCC codons. Let simulate to confirm. 
  
-```{r, message=FALSE, cache=TRUE}
+```{r, message=FALSE}
 set.seed(1234)
 codons <- replicate(100, {
   reverse_translate(amino_acid_seq = "X", codon_tbl = minimal_freq_tbl,
@@ -87,7 +95,7 @@ table(codons)
 ```
 
 Lets See if This Holds True for an Amino Acid Sequence
-```{r, message=FALSE, cache=TRUE}
+```{r, message=FALSE}
 codon_string <- replicate(100, {
   reverse_translate(amino_acid_seq = minimal_aa_seq, codon_tbl = minimal_freq_tbl,
                     limit = 0 , model = "proportional")
@@ -107,7 +115,7 @@ df %>%
 ```
 
 #### Equal Model
-```{r, message=FALSE, cache=TRUE}
+```{r, message=FALSE}
 set.seed(1234)
 codons <- replicate(100, {
   reverse_translate(amino_acid_seq = "X", codon_tbl = minimal_freq_tbl,
@@ -122,7 +130,7 @@ table(codons)
 nod2_txt
 ```
 
-```{r, message=FALSE, cache = TRUE}
+```{r, message=FALSE}
 set.seed(1234)
 nod2_nt_prop <- reverse_translate(amino_acid_seq = nod2_txt, codon_tbl = hsapien_tbl, limit = 0,
                   model = "proportional")
@@ -151,7 +159,7 @@ tokenizers::tokenize_characters(nod2_nt_low_gc, lowercase = FALSE) %>%
 nod2_txt
 ```
 
-```{r, message=FALSE, cache = TRUE}
+```{r, message=FALSE}
 set.seed(1234)
 nod2_nt_prop <- reverse_translate(amino_acid_seq = nod2_txt, codon_tbl = hsapien_tbl, limit = 0,
                   model = "proportional")

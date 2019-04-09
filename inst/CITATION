@@ -1,0 +1,10 @@
+citHeader("To cite reversetranslate in publications use:")
+
+citEntry(
+  entry    = "Manual",
+  title    = "reversetranslate: A Flexible and Efficient Method to Reverse Translate Amino Acids to Nucleotides",
+  author   = "G. Botwin",
+  year     = "2019",
+  url      = "https://github.com/greg-botwin/reversetranslate",
+  textVersion = "G. Botwin. reversetranslate: A Flexible and Efficient Method to Reverse Translate Amino Acids to Nucleotides."
+)
