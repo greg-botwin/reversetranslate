@@ -10,10 +10,6 @@ r:
  - devel
  - bioc-release
 
-# We need to install BiocInstaller for testing Bioconductor packages
-bioc_required: true
-
-
 # Only report coverage for the release version
 after_success:
   - test $TRAVIS_R_VERSION_STRING = 'release' && Rscript -e 'covr::codecov()'
