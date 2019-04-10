@@ -21,13 +21,24 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(reversetranslate)
 ```
-With the increase use of synthetic biology applications researchers might want to derive a DNA nucleotide sequence from a pre-specified amino acid sequence. This package is designed to assist you in such applications.
+With the increase use of synthetic biology applications researchers need to be able derive a DNA nucleotide sequence from a pre-specified amino acid sequence. This package is designed to assist in such applications.
+
+## Novelty
+We believe this package is novel due to the following characteristics:
+
+1. Provides an R package solution to solve a common bioinformatic challenge. Although current reverse translational implementations exist, they are either limited to Graphical User Interfaces (GUIs) which are often non-customizable and not condusive to batch processing or they are implementations in non-R programming languages [@Cowley2017; @Stothard2000; @jason_stajich_2016_164997; @pepsyn]. R is one of the most common bioinformatic programming languages and a robust and familiar suite of nucleotide processing functions already exists [@R-Biostrings]. By providing an R solution to the this common bioinformatic challenge, users can seemlessly apply the existing R package infrastructure and take advantage of bacth and parallel processing functionality. 
+
+2. Allows user to provide their own Codon Frequency Table so codon selection can accurately mimic the desired translation system as close as possible. Helper functions are provided so users can easily parse one of the 855,412 Codon Usage Tables from 689,420 species the High-performance Integrated Virtual Environment-Codon Usage Tables (HIVE-CUTs) database provides [@Athey2017].
+
+3. Allows the user to select from one of three biologically relevant translation models (e.g. proportional, equal, or gc_biased) depending on the users intended use case. Limiting GC content can help assist in synthetic DNA synthesis applications.
+
+4. Allows the user to filter to avoid the inclusion of low frequency codons which might assist in expression efficency. 
 
 ## Load Amino Acid Sequence(s) for Translation
 The user must supply the amino acid sequence you want to reverse translate. The sequence must exist as a `character` vector and the individual amino acids must be written in a way that match the amino acids listed in your selected Codon Frequency Table. If you wish to reverse translate multiple amino acid seqeunces under the same conditions store them all in a single `list` and pass them to `reverse_translate` using one of the iterative functions described in more detail below. 
 
 ### Download Protein Amino Acid Sequence
-An excellent source of protein amino acid sequences is the [UniProtKB/Swiss-Prot](https://www.uniprot.org/uniprot/?query=reviewed:yes). To reduce redundancy UniProtKB reports a cannonical sequence based on the following criteria:
+An excellent source of protein amino acid sequences is the [UniProtKB/Swiss-Prot](https://www.uniprot.org/uniprot/?query=reviewed:yes) [@uniprot]. To reduce redundancy UniProtKB reports a cannonical sequence based on the following criteria:
 
 1. It is the most prevalent.
 2. It is the most similar to orthologous sequences found in other species.3.
@@ -49,10 +60,11 @@ nod2_txt <- utils::read.delim("NOD2.FASTA", comment.char = ">",
 nod2_txt <- nod2_txt$V1 %>%
   paste0(collapse = "")
 
+nod2_txt
 ```
 
 ### Read FASTA Biostrings
-```{r}
+```{r, message=FALSE}
 # Install Bioconductor Installer and Biostrings Pakcage if Needed
  if (!requireNamespace("BiocManager", quietly = TRUE)) {
        install.packages("BiocManager")
@@ -60,21 +72,42 @@ nod2_txt <- nod2_txt$V1 %>%
  if (!requireNamespace("Biostrings", quietly = TRUE)) {
        BiocManager::install("Biostrings", version = "3.8")
  }
-library(Biostrings)
+library(Biostrings, quietly = TRUE)
 
 # read with Biostrings
 nod2_bs <- Biostrings::readAAStringSet("NOD2.FASTA")
 
+nod2_bs
 ```
 
-## Codon Frequency Table
-[@Athey2017]
+## Codon Frequency Table (CFT)
+The `reverse_translate` function requires a propoerly formatted Codon Frequency Table (CFT). The user can either supply their own CFT, use one of the provided commonly desired package options, or build their own after selecting a Codon Usage Table from one of the 689,420 species the High-performance Integrated Virtual Environment-Codon Usage Tables (HIVE-CUTs) database provides [@Athey2017].
 
 ### Format
 
+A CFT s a `data.frame` with 3 columns and `n` rows equal to the number of unique codons. In the case of the standard 3 nucleotide genetic code, 64 unqique codons are available. The data.frame must contain the following three columns. Additioanl columns are allowed and capitlization does not matter. 
+
+- `aa` - One letter abbreviation of the amino acid or * for Stop
+- `codon` - Three DNA nucletodies representing the amino acid.
+- `prop` - The proportion the specific codon is present in the genome
+
 ### Supplied Codon Frequency Tables
+The package supplies two CFT which are automatically accessible to the user after laoding the package. The CFTs were built using the `build_hive_codon_tbl` function off Codon Usage Tables from the HIVE-CUTs database. 
+
+#### Homo Sapiens
+```{r}
+#  Built from HIVE Homo sapiens (9606) Codon Usage Table
+head(hsapien_tbl)
+```
+
+#### Escheria Coli
+```{r}
+# Built from HIVE Escherichia coli (562) Codon Usage Table
+head(ecoli_tbl)
+```
 
 ### Building Your Own Codon Frequency Table 
+Users can easily create a Codon Frequency Table corresponding to their system of interest by searching the HIVE-CUTs [HIVE-CUTs](https://hive.biochemistry.gwu.edu/dna.cgi?cmd=refseq_processor&id=569942).
 
 ## Reverse Translation
 ### Models of Translation
@@ -86,7 +119,7 @@ For amino acid, assuming a proportional model, we would expect the proportion of
  
 ```{r, message=FALSE}
 set.seed(1234)
-codons <- replicate(100, {
+codons <- replicate(1000, {
   reverse_translate(amino_acid_seq = "X", codon_tbl = minimal_freq_tbl,
                     limit = 0, model = "proportional")
 })
@@ -96,12 +129,13 @@ table(codons)
 
 Lets See if This Holds True for an Amino Acid Sequence
 ```{r, message=FALSE}
-codon_string <- replicate(100, {
+set.seed(1234)
+codon_string <- replicate(1000, {
   reverse_translate(amino_acid_seq = minimal_aa_seq, codon_tbl = minimal_freq_tbl,
                     limit = 0 , model = "proportional")
 })
 
-df <- dplyr::data_frame(codon_string = codon_string)
+df <- dplyr::tibble(codon_string = codon_string)
 df %>%
   dplyr::mutate("AAA_count" = stringr::str_count(codon_string, "AAA")) %>%
   dplyr::mutate("TTT_count" = stringr::str_count(codon_string, "TTT")) %>%
@@ -117,7 +151,7 @@ df %>%
 #### Equal Model
 ```{r, message=FALSE}
 set.seed(1234)
-codons <- replicate(100, {
+codons <- replicate(1000, {
   reverse_translate(amino_acid_seq = "X", codon_tbl = minimal_freq_tbl,
                     limit = 0, model = "equal")
 })
@@ -135,7 +169,7 @@ set.seed(1234)
 nod2_nt_prop <- reverse_translate(amino_acid_seq = nod2_txt, codon_tbl = hsapien_tbl, limit = 0,
                   model = "proportional")
 
-
+# proportional modell
 tokenizers::tokenize_characters(nod2_nt_prop, lowercase = FALSE) %>%
   table()
 
@@ -143,7 +177,7 @@ tokenizers::tokenize_characters(nod2_nt_prop, lowercase = FALSE) %>%
 set.seed(1234)
 nod2_nt_low_gc <- reverse_translate(amino_acid_seq = nod2_txt, codon_tbl = hsapien_tbl, limit = 0,
                   model = "gc_biased")
-
+# gc biased model
 tokenizers::tokenize_characters(nod2_nt_low_gc, lowercase = FALSE) %>%
   table()
 ```
@@ -153,27 +187,4 @@ tokenizers::tokenize_characters(nod2_nt_low_gc, lowercase = FALSE) %>%
 #### Using `purrr:map`
 #### Using the `futures` package and multiple cores
 
-
-##  GC Biased
-```{r}
-nod2_txt
-```
-
-```{r, message=FALSE}
-set.seed(1234)
-nod2_nt_prop <- reverse_translate(amino_acid_seq = nod2_txt, codon_tbl = hsapien_tbl, limit = 0,
-                  model = "proportional")
-
-
-tokenizers::tokenize_characters(nod2_nt_prop, lowercase = FALSE) %>%
-  table()
-
-
-set.seed(1234)
-nod2_nt_low_gc <- reverse_translate(amino_acid_seq = nod2_txt, codon_tbl = hsapien_tbl, limit = 0,
-                  model = "gc_biased")
-
-tokenizers::tokenize_characters(nod2_nt_low_gc, lowercase = FALSE) %>%
-  table()
-```
-
+## References

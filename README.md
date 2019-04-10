@@ -34,11 +34,16 @@ devtools::install_github("greg-botwin/reversetranslate")
 Users can supply their own Codon Frequency Table relevant to the
 organism they are most interested in simulating the reverse translation
 in or use one of the commonly desired options supplied. Users can also
-select between three different models of reverse translation
-(e.g. proportional, equal, or GC biased) depending on what assumptions
-you want to make regarding how redundant codons are chosen and your
-intended application. The user can also choose to limit the inclusion of
-low frequency codons into the reverse translated nucleotide sequence.
+select between the following three different models of reverse
+translation depending on what assumptions you want to make regarding how
+redundant codons are chosen and your intended application.
+
+1.  proportional
+2.  equal
+3.  GC biased
+
+The user may also choose to limit the inclusion of low frequency codons
+into the reverse translated nucleotide sequence.
 
 The package currently maintains Codon Frequency Tables for:
 
@@ -70,7 +75,7 @@ minimal_aa_seq
 
 ``` r
 minimal_freq_tbl
-#>   Codon AA Prop
+#>   codon aa prop
 #> 1   AAA  X  0.4
 #> 2   GGG  X  0.4
 #> 3   CCC  X  0.2
@@ -83,5 +88,5 @@ minimal_freq_tbl
 reverse_translate(amino_acid_seq = minimal_aa_seq, codon_tbl = minimal_freq_tbl,
                   limit = 0, model = "proportional")
 #> Properly formated Codon Frequency Table
-#> [1] "CCCCCCCCCTTTAAAAAACCCTTTTTT"
+#> [1] "AAAAAAAAATTTGGGGGGAAATTTTTT"
 ```
