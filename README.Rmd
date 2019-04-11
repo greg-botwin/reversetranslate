@@ -41,7 +41,7 @@ Users can supply their own Codon Frequency Table relevant to the organism they a
 
 The user may also choose to limit the inclusion of low frequency codons into the reverse translated nucleotide sequence. 
 
- The package currently maintains Codon Frequency Tables for:  
+The package currently maintains Codon Frequency Tables for:  
  
 - Homo sapiens
 - Escherichia coli

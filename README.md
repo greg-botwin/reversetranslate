@@ -68,7 +68,7 @@ library(reversetranslate)
 
 ``` r
 minimal_aa_seq
-#> [1] "XXXYXXXYY"
+#> [1] "XXXYXXXYYZ"
 ```
 
 ### Example Codon Frequency Table
@@ -80,6 +80,10 @@ minimal_freq_tbl
 #> 2   GGG  X  0.4
 #> 3   CCC  X  0.2
 #> 4   TTT  Y  1.0
+#> 5   GCT  Z  0.2
+#> 6   ATG  Z  0.4
+#> 7   AAC  Z  0.2
+#> 8   CCC  Z  0.2
 ```
 
 ### Example Reverse Translation
@@ -88,5 +92,5 @@ minimal_freq_tbl
 reverse_translate(amino_acid_seq = minimal_aa_seq, codon_tbl = minimal_freq_tbl,
                   limit = 0, model = "proportional")
 #> Properly formated Codon Frequency Table
-#> [1] "AAAAAAAAATTTGGGGGGAAATTTTTT"
+#> [1] "AAACCCGGGTTTAAACCCAAATTTTTTGCT"
 ```
