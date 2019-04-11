@@ -1,17 +1,17 @@
 #' Reverse translate amino acid Sequence to DNA nucleotides
 #'
 #' @param amino_acid_seq A character vector of representing amino acid(s).
-#' @param codon_tbl A properly formated Codon Frequency Table with the following
+#' @param codon_tbl A properly formatted Codon Frequency Table with the following
 #'  column names, c("codon", "aa", "prop"). The Prop column must be of type
-#'  numberic and all proportiosn between 0 and 1. The sum of each codons
+#'  numeric and all proportions between 0 and 1. The sum of each codons
 #'  proportion per amino acid equal roughly 1 (0.98 to 1.02 allowed). Please see
-#'  check_codon_table for more infomration.
+#'  check_codon_table for more information.
 #' @param limit Numerical value set to restrict codons to proportions greater
 #' then the set limit. Must be between 0 and 0.49. Defaults to 0, no limit if
 #' not set. When limiting rare codons, the residual proportions are split
 #' equally amongst the remaining codon options.
 #' @param model Either proportional, equal or gc_bias. if a limit is applied,
-#' the limit parameter will first be chosen over the gc correction
+#' the limit parameter will first be chosen over the GC correction
 #'
 #' @return character vector representing reverse translated DNA nucleotide codons.
 #' @export
@@ -90,10 +90,10 @@ select_codon <- function(options, model) {
     ## rmultionom distribution based on provided prop
     ## select 1 row
 
-    missing_prop <- (1 - sum(options$prop))/nrow(options)
+    missing_prop <- (1 - sum(options$prop))
 
     selected_codon <- options %>%
-      dplyr::mutate(updated_prop = prop + missing_prop) %>%
+      dplyr::mutate(updated_prop = prop/sum(options$prop))%>%
       dplyr::mutate(select = c(stats::rmultinom(n = 1, size = 1, prob = updated_prop))) %>%
       dplyr::filter(select == 1) %>%
       dplyr::select(codon) %>%
@@ -127,10 +127,10 @@ select_codon <- function(options, model) {
       dplyr::ungroup() %>%
       dplyr::filter(gc_content == "min")
 
-    missing_prop <- (1 - sum(options$prop))/nrow(options)
+    missing_prop <- (1 - sum(options$prop))
 
     selected_codon <- options %>%
-      dplyr::mutate(updated_prop = prop + missing_prop) %>%
+      dplyr::mutate(updated_prop = prop/sum(options$prop))%>%
       dplyr::mutate(select = c(stats::rmultinom(n = 1, size = 1, prob = updated_prop))) %>%
       dplyr::filter(select == 1) %>%
       dplyr::select(codon) %>%

@@ -1,7 +1,7 @@
 #' Names, abbreviations and codons, for the 20 standard proteinogenic amino acids plus stop codon.
 #'
-#' A dataset containing the full name, three letter abreviation, single letter
-#'  abbreviationand codon for the 20 standard proteinogenic amino acids plus Stop.
+#' A dataset containing the full name, three letter abbreviation, single letter
+#'  abbreviation and codon for the 20 standard proteinogenic amino acids plus Stop.
 #'
 #' @format A data frame with 64 rows and 4 variables:
 #' \describe{
@@ -15,13 +15,13 @@
 
 #' A minimal Codon Frequency Table designed for tests.
 #'
-#' A minimal Codon Frequency Table made up for two test amino acids, called X
-#' and Y which are coded for 3 and 1 codon sequence respectively.
+#' A minimal Codon Frequency Table made up for three test amino acids, called X, Y
+#' and Z which are coded by 3, 1 and 4 codons respectively.
 #'
-#' @format A data frame with 4 rows and 3 variables:
+#' @format A data frame with 8 rows and 3 variables:
 #' \describe{
 #'   \item{aa}{One letter abbreviation of the amino acid or * for Stop}
-#'   \item{codon}{Three DNA nucletodies representing the amino acid.}
+#'   \item{codon}{Three DNA nucleotides representing the amino acid.}
 #'   \item{prop}{The proportion the specific codon is present in the genome)}
 #' }
 #'
@@ -31,7 +31,7 @@
 #' used for testing and display.
 #'
 #' @format #' A character vector designed to represent a minimal amino acid
-#' sequence of 9 made up amino acids of X and Y.
+#' sequence of 10 made up amino acids of X, Y and Z.
 #'
 "minimal_aa_seq"
 
@@ -42,7 +42,7 @@
 #' @format A data frame with 4 rows and 3 variables:
 #' \describe{
 #'   \item{aa}{One letter abbreviation of the amino acid or * for Stop}
-#'   \item{codon}{Three DNA nucletodies representing the amino acid.}
+#'   \item{codon}{Three DNA nucleotides representing the amino acid.}
 #'   \item{prop}{The proportion the specific codon is present in the genome)}
 #' }
 #'
@@ -55,7 +55,7 @@
 #' @format A data frame with 4 rows and 3 variables:
 #' \describe{
 #'   \item{aa}{One letter abbreviation of the amino acid or * for Stop}
-#'   \item{codon}{Three DNA nucletodies representing the amino acid.}
+#'   \item{codon}{Three DNA nucleotides representing the amino acid.}
 #'   \item{prop}{The proportion the specific codon is present in the genome)}
 #' }
 #'

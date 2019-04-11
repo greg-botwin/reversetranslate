@@ -1,14 +1,14 @@
 #' Confirm formatting for user supplied Codon Frequency Table.
 #'
 #' @param codon_tbl A Codon Frequency Table with the following column names,
-#'  c("codon", "aa", "prop"). Capitlliation of column names should not matter.
+#'  c("codon", "aa", "prop"). Capitalization of column names should not matter.
 #'  The prop column must be of type numeric and all proportions between 0 and 1.
 #'  The sum of each codons proportion per amino acid must total roughly to 1
 #'  (0.98 to 1.02 allowed).
 #'
 #' @format codon_tbl (A Codon Frequency Table):
 #' \describe{
-#'   \item{codon}{Three DNA nucletodies representing the amino acid.}
+#'   \item{codon}{Three DNA nucleotides representing the amino acid.}
 #'   \item{aa}{One letter abbreviation of the amino acid or * for Stop}
 #'   \item{prop}{The proportion the specific codon is present in the genome}
 #' }

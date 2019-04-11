@@ -6,7 +6,7 @@
 \title{A minimal amino acid sequence comprised of the made up amino acids X and Y
 used for testing and display.}
 \format{#' A character vector designed to represent a minimal amino acid
-sequence of 9 made up amino acids of X and Y.}
+sequence of 10 made up amino acids of X, Y and Z.}
 \usage{
 minimal_aa_seq
 }

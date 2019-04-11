@@ -8,14 +8,14 @@ check_limit(codon_tbl, limit)
 }
 \arguments{
 \item{codon_tbl}{A properly formatted Codon Frequency Table with the following
-column names, c("codon", "aa", "prop"). Capitlization of column names should
+column names, c("codon", "aa", "prop"). Capitalization of column names should
 not matter. The prop column must be of type numeric and all proportions
 between 0 and 1. The sum of each codons proportion per amino acid must total
 roughly to 1 (0.98 to 1.02 allowed).}
 
 \item{limit}{A numeric value greater than or equal to 0 and less than or equal
 to 0.49. Codons with a proportion below specified value will be filtered and
-will not be avaialble for selection through the reverse translation function.}
+will not be avaliable for selection through the reverse translation function.}
 }
 \value{
 A filtered Codon Frequency Table removing all amino acids whose proportion

@@ -10,11 +10,11 @@ reverse_translate(amino_acid_seq, codon_tbl, limit = 0,
 \arguments{
 \item{amino_acid_seq}{A character vector of representing amino acid(s).}
 
-\item{codon_tbl}{A properly formated Codon Frequency Table with the following
+\item{codon_tbl}{A properly formatted Codon Frequency Table with the following
 column names, c("codon", "aa", "prop"). The Prop column must be of type
-numberic and all proportiosn between 0 and 1. The sum of each codons
+numeric and all proportions between 0 and 1. The sum of each codons
 proportion per amino acid equal roughly 1 (0.98 to 1.02 allowed). Please see
-check_codon_table for more infomration.}
+check_codon_table for more information.}
 
 \item{limit}{Numerical value set to restrict codons to proportions greater
 then the set limit. Must be between 0 and 0.49. Defaults to 0, no limit if
@@ -22,7 +22,7 @@ not set. When limiting rare codons, the residual proportions are split
 equally amongst the remaining codon options.}
 
 \item{model}{Either proportional, equal or gc_bias. if a limit is applied,
-the limit parameter will first be chosen over the gc correction}
+the limit parameter will first be chosen over the GC correction}
 }
 \value{
 character vector representing reverse translated DNA nucleotide codons.

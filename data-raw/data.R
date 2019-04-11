@@ -20,14 +20,14 @@ ecoli_tbl <- reversetranslate::build_hive_codon_tbl("data-raw/ecoli_hive.txt",
 usethis::use_data(ecoli_tbl, overwrite = TRUE)
 
 # minimum codon freq table simple tests
-minimal_freq_tbl <- data.frame("codon" = c("AAA", "GGG", "CCC", "TTT"),
-                               "aa" = c("X", "X", "X", "Y"),
-                               "prop" = c(0.4, 0.4, 0.2, 1),
+minimal_freq_tbl <- data.frame("codon" = c("AAA", "GGG", "CCC", "TTT", "GCT", "ATG", "AAC", "CCC"),
+                               "aa" = c("X", "X", "X", "Y", "Z", "Z", "Z", "Z"),
+                               "prop" = c(0.4, 0.4, 0.2, 1, 0.2, 0.4, 0.2, 0.2),
                                stringsAsFactors = FALSE)
 
 usethis::use_data(minimal_freq_tbl, overwrite = TRUE)
 
 # mimimum amino acid sequence for simple tests
-minimal_aa_seq <- c("XXXYXXXYY")
+minimal_aa_seq <- c("XXXYXXXYYZ")
 
 usethis::use_data(minimal_aa_seq, overwrite = TRUE)

@@ -15,7 +15,7 @@
 aa_names
 }
 \description{
-A dataset containing the full name, three letter abreviation, single letter
- abbreviationand codon for the 20 standard proteinogenic amino acids plus Stop.
+A dataset containing the full name, three letter abbreviation, single letter
+ abbreviation and codon for the 20 standard proteinogenic amino acids plus Stop.
 }
 \keyword{datasets}
