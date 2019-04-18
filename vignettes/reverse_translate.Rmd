@@ -41,7 +41,7 @@ The user must supply the amino acid sequence you want to reverse translate. The 
 An excellent source of protein amino acid sequences is the [UniProtKB/Swiss-Prot](https://www.uniprot.org/uniprot/?query=reviewed:yes) database [@uniprot]. To reduce redundancy UniProtKB reports a canonical amino acid sequence based on the following criteria:
 
 1. It is the most prevalent.
-2. It is the most similar to orthologous sequences found in other species.3.
+2. It is the most similar to orthologous sequences found in other species.
 3. By virtue of its length or amino acid composition, it allows the clearest description of domains, isoforms, polymorphisms, post-translational modifications, etc.
 4. In the absence of any information, we choose the longest sequence.
 
