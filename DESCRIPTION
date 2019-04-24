@@ -1,12 +1,10 @@
 Package: reversetranslate
 Title: Reverse Translate Amino Acid Sequences to Nucleotides
 Version: 0.0.0.9000
-Authors@R: 
-    person(given = "Gregory",
-           family = "Botwin",
-           role = c("aut", "cre"),
-           email = "gbotwin@gmail.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+Authors@R: c(
+    person("Gregory", "Botwin", , "gbotwin@gmail.com", role = c("aut", "cre")),
+    person("Cedars-Sinai Medical Center", role = "cph")
+    )
 Description: The goal of `reversetranslate` is to provide a set of R functions to assist users in reverse translating an amino acid sequence to DNA nucleotides. Users can provide their own Codon Frequency Table so codon selection can accurately mimic the desired translation system and choose between 3 different codon selection models.
 License: GPL-3
 Encoding: UTF-8
