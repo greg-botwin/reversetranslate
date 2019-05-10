@@ -1,6 +1,6 @@
 Package: reversetranslate
 Title: Reverse Translate Amino Acid Sequences to Nucleotides
-Version: 0.0.0.9000
+Version: 1.0.0
 Authors@R: c(
     person("Gregory", "Botwin", , "gregory.botwin.cshs.org", role = c("aut", "cre")),
     person("Cedars-Sinai Medical Center", role = "cph")
