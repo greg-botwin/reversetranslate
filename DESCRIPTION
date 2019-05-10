@@ -21,7 +21,6 @@ Suggests:
 Imports: 
     dplyr,
     utils,
-    tidytext,
     stringr,
     magrittr,
     stats,
