@@ -50,6 +50,9 @@ check_codon_table <- function(codon_tbl) {
 
   else(message("Properly formated Codon Frequency Table"))
 
+  # convert all codons to upper
+  codon_tbl$aa <- toupper(codon_tbl$aa)
+
   return(codon_tbl)
 
 }

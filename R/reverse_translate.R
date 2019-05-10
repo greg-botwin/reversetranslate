@@ -22,6 +22,9 @@ reverse_translate <- function(amino_acid_seq, codon_tbl, limit = 0, model = "pro
     stop("Amino acid sequence must be of type character")
   }
 
+  # convert amino acid sequence to upper
+  amino_acid_seq <- toupper(amino_acid_seq)
+
   # check if single amino_acid_seq or string
   if(nchar(amino_acid_seq) == 1) {
     string <- "single"
@@ -62,7 +65,7 @@ reverse_translate <- function(amino_acid_seq, codon_tbl, limit = 0, model = "pro
   if(string == "multi") {
 
     # break apart string into individual amino_acid_seq
-    amino_acids <- tokenizers::tokenize_characters(amino_acid_seq, lowercase = FALSE)[[1]]
+    amino_acids <- strsplit(amino_acid_seq, "")[[1]]
 
     # check all amino_acid_seq in table
     if(!all(unique(amino_acids) %in% unique(codon_tbl$aa))) {

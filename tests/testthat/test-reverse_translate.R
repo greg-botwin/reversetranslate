@@ -7,3 +7,7 @@ test_that("length output 3 times input", {
                3 * nchar("X"))
 })
 
+test_that("lower okay", {
+  expect_equal(nchar(reverse_translate(amino_acid_seq = tolower(minimal_aa_seq), codon_tbl = minimal_freq_tbl)),
+               3 * nchar(minimal_aa_seq))
+})
