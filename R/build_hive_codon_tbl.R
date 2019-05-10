@@ -20,27 +20,27 @@ build_hive_codon_tbl <- function(file, skip = 2, total_codons){
   hive_df <- utils::read.table(file = file, skip = skip)
 
   hive_df <- hive_df %>%
-    tidyr::separate_rows(V1, sep = "\\)") %>%
-    dplyr::mutate(codon = stringr::str_extract(V1, "[[:upper:]]{3}")) %>%
-    dplyr::mutate(prop_1000 = as.double(stringr::str_extract(V1, "[[:digit:]]+.[[:digit:]]{2}"))) %>%
-    dplyr::mutate(count = as.double(stringr::str_extract(V1, "[[:digit:]]{3,}"))) %>%
-    dplyr::select(-V1) %>%
-    dplyr::filter_all(dplyr::any_vars(!is.na(.)))
+    tidyr::separate_rows(.data$V1, sep = "\\)") %>%
+    dplyr::mutate(codon = stringr::str_extract(.data$V1, "[[:upper:]]{3}")) %>%
+    dplyr::mutate(prop_1000 = as.double(stringr::str_extract(.data$V1, "[[:digit:]]+.[[:digit:]]{2}"))) %>%
+    dplyr::mutate(count = as.double(stringr::str_extract(.data$V1, "[[:digit:]]{3,}"))) %>%
+    dplyr::select(-.data$V1)
+
+  hive_df <- hive_df[stats::complete.cases(hive_df), ]
 
   count_sum <- sum(hive_df$count)
 
   if(count_sum != total_codons) {
-    stop("Sum of counts does not equal supplied tota_cds (Total Coding Sequences (CDS))")
+    stop("Sum of counts does not equal supplied total_cds (Total Coding Sequences (CDS))")
   }
 
-  hive_df <- hive_df %>%
-    dplyr::left_join(., aa_names, by = c("codon" = "Codon")) %>%
-    dplyr::rename(aa = AA) %>%
-    dplyr::group_by(aa) %>%
-    dplyr::mutate(aa_total = sum(count)) %>%
+  hive_df <- dplyr::left_join(hive_df, reversetranslate::aa_names, by = c("codon" = "Codon")) %>%
+    dplyr::rename("aa" = .data$AA) %>%
+    dplyr::group_by(.data$aa) %>%
+    dplyr::mutate(aa_total = sum(.data$count)) %>%
     dplyr::ungroup() %>%
-    dplyr::mutate(prop = count/aa_total) %>%
-    dplyr::select(aa, codon, prop)
+    dplyr::mutate(prop = .data$count/.data$aa_total) %>%
+    dplyr::select(.data$aa, .data$codon, .data$prop)
 
 
   return(hive_df)

@@ -24,7 +24,8 @@ Imports:
     stringr,
     magrittr,
     stats,
-    tidyr
+    tidyr,
+    rlang
 VignetteBuilder: knitr
 Depends: 
     R (>= 3.1)

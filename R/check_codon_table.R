@@ -39,9 +39,9 @@ check_codon_table <- function(codon_tbl) {
 
   # check the sum of props by aa sum to 0.98 to 1.02
   total_props <- codon_tbl %>%
-    dplyr::group_by(aa) %>%
-    dplyr::summarise(total_prop = sum(prop)) %>%
-    dplyr::select(total_prop) %>%
+    dplyr::group_by(.data$aa) %>%
+    dplyr::summarise(total_prop = sum(.data$prop)) %>%
+    dplyr::select(.data$total_prop) %>%
     unlist()
 
   if(all(total_props >= 0.98 & total_props <= 1.02) != TRUE) {

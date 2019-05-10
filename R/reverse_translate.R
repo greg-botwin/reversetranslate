@@ -52,8 +52,8 @@ reverse_translate <- function(amino_acid_seq, codon_tbl, limit = 0, model = "pro
 
     # define codon options
     options <- codon_tbl %>%
-      dplyr::filter(prop >= limit) %>%
-      dplyr::filter(aa == amino_acid_seq)
+      dplyr::filter(.data$prop >= limit) %>%
+      dplyr::filter(.data$aa == amino_acid_seq)
 
 
     result <- select_codon(options = options, model = model)
@@ -74,8 +74,8 @@ reverse_translate <- function(amino_acid_seq, codon_tbl, limit = 0, model = "pro
 
     selected_codons <- vapply(amino_acids, function(x) {
       options <- codon_tbl %>%
-        dplyr::filter(prop >= limit) %>%
-        dplyr::filter(aa == x)
+        dplyr::filter(.data$prop >= limit) %>%
+        dplyr::filter(.data$aa == x)
 
       select_codon(options = options, model = model)
     }, FUN.VALUE = character(1))
@@ -96,10 +96,10 @@ select_codon <- function(options, model) {
     missing_prop <- (1 - sum(options$prop))
 
     selected_codon <- options %>%
-      dplyr::mutate(updated_prop = prop/sum(options$prop))%>%
-      dplyr::mutate(select = c(stats::rmultinom(n = 1, size = 1, prob = updated_prop))) %>%
-      dplyr::filter(select == 1) %>%
-      dplyr::select(codon) %>%
+      dplyr::mutate(updated_prop = .data$prop/sum(options$prop))%>%
+      dplyr::mutate(select = c(stats::rmultinom(n = 1, size = 1, prob = .data$updated_prop))) %>%
+      dplyr::filter(.data$select == 1) %>%
+      dplyr::select(.data$codon) %>%
       unlist() %>%
       as.character()
 
@@ -111,9 +111,9 @@ select_codon <- function(options, model) {
     ## assign each remaining codon option equal prop
     selected_codon <- options %>%
       dplyr::mutate(updated_prop = 1/nrow(options)) %>%
-      dplyr::mutate(select = c(stats::rmultinom(n = 1, size = 1, prob = updated_prop))) %>%
-      dplyr::filter(select == 1) %>%
-      dplyr::select(codon) %>%
+      dplyr::mutate(select = c(stats::rmultinom(n = 1, size = 1, prob = .data$updated_prop))) %>%
+      dplyr::filter(.data$select == 1) %>%
+      dplyr::select(.data$codon) %>%
       unlist() %>%
       as.character()
 
@@ -123,20 +123,20 @@ select_codon <- function(options, model) {
 
   if(model == "gc_biased") {
     options <- options %>%
-      dplyr::mutate(gc_count = stringr::str_count(codon, "G|C")) %>%
-      dplyr::group_by(aa) %>%
-      dplyr::mutate(gc_content = dplyr::if_else(gc_count == min(gc_count), "min",
-                                         dplyr::if_else(gc_count == max(gc_count), "max", "med"))) %>%
+      dplyr::mutate(gc_count = stringr::str_count(.data$codon, "G|C")) %>%
+      dplyr::group_by(.data$aa) %>%
+      dplyr::mutate(gc_content = dplyr::if_else(.data$gc_count == min(.data$gc_count), "min",
+                                         dplyr::if_else(.data$gc_count == max(.data$gc_count), "max", "med"))) %>%
       dplyr::ungroup() %>%
-      dplyr::filter(gc_content == "min")
+      dplyr::filter(.data$gc_content == "min")
 
     missing_prop <- (1 - sum(options$prop))
 
     selected_codon <- options %>%
-      dplyr::mutate(updated_prop = prop/sum(options$prop))%>%
-      dplyr::mutate(select = c(stats::rmultinom(n = 1, size = 1, prob = updated_prop))) %>%
-      dplyr::filter(select == 1) %>%
-      dplyr::select(codon) %>%
+      dplyr::mutate(updated_prop = .data$prop/sum(options$prop))%>%
+      dplyr::mutate(select = c(stats::rmultinom(n = 1, size = 1, prob = .data$updated_prop))) %>%
+      dplyr::filter(.data$select == 1) %>%
+      dplyr::select(.data$codon) %>%
       unlist() %>%
       as.character()
 

@@ -28,7 +28,7 @@ check_limit <- function(codon_tbl, limit) {
 
   # check to make sure all aa have >= 1 options after limit
   aa_post_filter <- codon_tbl %>%
-    dplyr::filter(prop >= limit)
+    dplyr::filter(.data$prop >= limit)
 
   if(!identical(sort(unique(aa_post_filter$aa)), sort(unique(codon_tbl$aa)))) {
     stop("Codon frequency limit is too high. Not all amino acids have at least 1 remaining codon option.")
