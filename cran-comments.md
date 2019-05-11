@@ -11,4 +11,4 @@ Greg Botwin
 ## R CMD check results
 There were no ERRORs or WARNINGs. 
 
-There were 1 NOTES:
+There were 0 NOTES:

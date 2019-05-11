@@ -1,10 +1,36 @@
-citHeader("To cite reversetranslate in publications use:")
+citHeader("Thank you for your interest in citing this package. If you are using
+any of the package supplied Codon Frequency Tables I encourage you to first cite
+Athey, John, et al. Secondarily, if you are intersted in citing this package,
+please see the information specified below.")
 
-citEntry(
-  entry    = "Manual",
-  title    = "reversetranslate: A Flexible and Efficient Method to Reverse Translate Amino Acids to Nucleotides",
-  author   = "G. Botwin",
-  year     = "2019",
-  url      = "https://github.com/greg-botwin/reversetranslate",
-  textVersion = "G. Botwin. reversetranslate: A Flexible and Efficient Method to Reverse Translate Amino Acids to Nucleotides."
-)
+
+
+ref <- c(bibentry(bibtype = "Article",
+                  author=c(person("John", "Athey"),
+                            person("Aikateriniand", "Alexaki"),
+                            person("Ekaterina", "Osipova"),
+                            person("Alexandre", "Rostovtsev"),
+                            person("Luis V", "Santana-Quintero"),
+                            person("Upendra", "Katneni"),
+                            person("Vahan", "Simonyan"),
+                            person("Chava", "Kimchi-Sarfaty")),
+                  title="A new and updated resource for codon usage tables",
+                  journal="BMC Bioinformatics",
+                  year="2017",
+                  month="Sep",
+                  day="02",
+                  volume="18",
+                  number="1",
+                  pages="391",
+                  issn="1471-2105",
+                  doi="10.1186/s12859-017-1793-7"),
+        bibentry(bibtype = "Manual",
+                  title = "reversetranslate: Reverse Translate Amino Acid Sequences to
+                  Nucleotides",
+                  author = person("Gregory", "Botwin"),
+                  organization = "Cedars-Sinai Medical Center",
+                  address = "Los Angeles, CA",
+                  year = 2019,
+                  url = "https://github.com/greg-botwin/reversetranslate/"))
+
+citEntry(ref)
