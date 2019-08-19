@@ -92,5 +92,9 @@ minimal_freq_tbl
 reverse_translate(amino_acid_seq = minimal_aa_seq, codon_tbl = minimal_freq_tbl,
                   limit = 0, model = "proportional")
 #> Properly formated Codon Frequency Table
-#> [1] "AAACCCGGGTTTAAACCCAAATTTTTTGCT"
+#> [1] "AAACCCGGGTTTGGGAAAAAATTTTTTAAC"
 ```
+
+### Support
+
+This work was supported by Cedars-Sinai Precision Health.
