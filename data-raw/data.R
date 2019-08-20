@@ -2,20 +2,52 @@ library(dplyr)
 
 # amino acid naming
 aa_names <- utils::read.csv("data-raw/aa_naming.txt", comment.char = "#",
-                            header = FALSE, col.names = c("Name", "Abr", "AA", "Codon"),
+                            header = FALSE, col.names = c("name", "abr", "aa", "codon"),
                             stringsAsFactors = FALSE)
 
 usethis::use_data(aa_names, overwrite = TRUE)
 
 # prepare human codon table HIVE
-hsapien_tbl <- reversetranslate::build_hive_codon_tbl("data-raw/hsapien_hive.txt",
-                                                           skip = 2, 78580607)
+# Assembly GCF_000001405.38
+# refseq codon usage table by species downloaded from HIVE
+# https://hive.biochemistry.gwu.edu on 20-Aug-2019
+# 78581299 codons across 1 asssembly
+
+hsapien_tbl <- readr::read_tsv("data-raw/o576245-Refseq_species.tsv")
+colnames(hsapien_tbl) <- make.names(colnames(hsapien_tbl))
+
+hsapien_tbl <- hsapien_tbl %>%
+  dplyr::filter(.data$Organelle == "genomic") %>%
+  dplyr::filter(.data$Taxid == 9606) %>%
+  dplyr::select(-Division, -Assembly, -Taxid, -Species, -Organelle, -Translation.Table,
+                -X..CDS, -GC., -GC1., -GC2., -GC3.) %>%
+  tidyr::gather(key = "codon", value = "n_codons", -X..Codons) %>%
+  dplyr::mutate(prop = n_codons/X..Codons) %>%
+  dplyr::inner_join(., aa_names, by = "codon") %>%
+  dplyr::select(codon, aa, prop)
 
 usethis::use_data(hsapien_tbl, overwrite = TRUE)
 
 # prepare E coli table HIVE
-ecoli_tbl <- reversetranslate::build_hive_codon_tbl("data-raw/ecoli_hive.txt",
-                                                      skip = 2, 17506389367)
+# refseq codon usage table by species downloaded from HIVE
+# https://hive.biochemistry.gwu.edu on 20-Aug-2019
+# 16107182956 codons across 10,957 assemblies
+
+ecoli_tbl <- readr::read_tsv("data-raw/o576245-Refseq_species.tsv")
+colnames(ecoli_tbl) <- make.names(colnames(ecoli_tbl))
+
+ecoli_tbl <- ecoli_tbl %>%
+  dplyr::filter(.data$Organelle == "genomic") %>%
+  dplyr::filter(.data$Taxid == 562) %>%
+  dplyr::select(-Division, -Assembly, -Taxid, -Species, -Organelle, -Translation.Table,
+                -X..CDS, -GC., -GC1., -GC2., -GC3.) %>%
+  tidyr::gather(key = "codon", value = "n_codons_per_assembly", -X..Codons) %>%
+  dplyr::group_by(codon) %>%
+  dplyr::summarise(n_codons = sum(n_codons_per_assembly),
+                   total_codons = sum(X..Codons)) %>%
+  dplyr::mutate(prop = n_codons/total_codons) %>%
+  dplyr::inner_join(., aa_names, by = "codon") %>%
+  dplyr::select(codon, aa, prop)
 
 usethis::use_data(ecoli_tbl, overwrite = TRUE)
 

@@ -5,10 +5,10 @@
 #'
 #' @format A data frame with 64 rows and 4 variables:
 #' \describe{
-#'   \item{Name}{Name of the amino acid or Stop}
-#'   \item{Abr}{Three letter abbreviation of the amino acid or End for Stop}
+#'   \item{name}{Name of the amino acid or Stop}
+#'   \item{abr}{Three letter abbreviation of the amino acid or End for Stop}
 #'   \item{AA}{One letter abbreviation of the amino acid or * for Stop}
-#'   \item{Codon}{Three nucleotide (A,G,C,T only) codon for the assigned amino acid.}
+#'   \item{codon}{Three nucleotide (A,G,C,T only) codon for the assigned amino acid.}
 #' }
 #'
 "aa_names"

@@ -25,7 +25,8 @@ Imports:
     magrittr,
     stats,
     tidyr,
-    rlang
+    rlang,
+    readr
 VignetteBuilder: knitr
 Depends: 
     R (>= 3.1)
