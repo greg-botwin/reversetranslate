@@ -7,7 +7,7 @@
 #' \describe{
 #'   \item{name}{Name of the amino acid or Stop}
 #'   \item{abr}{Three letter abbreviation of the amino acid or End for Stop}
-#'   \item{AA}{One letter abbreviation of the amino acid or * for Stop}
+#'   \item{aa}{One letter abbreviation of the amino acid or * for Stop}
 #'   \item{codon}{Three nucleotide (A,G,C,T only) codon for the assigned amino acid.}
 #' }
 #'
