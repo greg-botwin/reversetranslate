@@ -39,7 +39,7 @@
 #'
 #'Built from HIVE Homo sapiens (9606) Codon Usage Table
 #'
-#' @format A data frame with 4 rows and 3 variables:
+#' @format A data frame with 64 rows and 3 variables:
 #' \describe{
 #'   \item{aa}{One letter abbreviation of the amino acid or * for Stop}
 #'   \item{codon}{Three DNA nucleotides representing the amino acid.}
@@ -52,7 +52,7 @@
 #'
 #' Built from HIVE Escherichia coli (562) Codon Usage Table
 #'
-#' @format A data frame with 4 rows and 3 variables:
+#' @format A data frame with 64 rows and 3 variables:
 #' \describe{
 #'   \item{aa}{One letter abbreviation of the amino acid or * for Stop}
 #'   \item{codon}{Three DNA nucleotides representing the amino acid.}
