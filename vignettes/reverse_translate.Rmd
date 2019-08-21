@@ -1,5 +1,5 @@
 ---
-title: "reverse_translate"
+title: "reversetranslate"
 author: "Greg Botwin"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -108,20 +108,6 @@ head(hsapien_tbl)
 head(ecoli_tbl)
 ```
 
-### Building Your Own Codon Frequency Table 
-Users can easily create a Codon Frequency Table corresponding to their system of interest by searching the [HIVE-CUTs Database](https://hive.biochemistry.gwu.edu/dna.cgi?cmd=refseq_processor&id=569942).
-
-For example, below we show the return search for Saccharomyces (4930). You will now want to copy and paste the complete Codon Usage Table including the two lines before the codon into a text file (see below for details.)
-
-![HIVE-CUTs Search](example_hive_search_screen.png){width=600px}
-
-Using the `build_hive_codon_tbl` function, users can easily read in a Codon Usage Table and convert it into a properly formatted Codon Frequency Table to be used for reverse translation. In addition to providing the path where the file is located, users are asked to provide the number of lines to skip before reading in the codon information (default = 2) and the total number of codons assessed in deriving the Codon Usage Table (in our test case = 5608057).
-
-```{r, eval = FALSE}
-sacchar_tbl <- build_hive_codon_tbl(file = "path/to/file.txt", skip = 2, 
-                                    total_codons = 5608057)
-```
-
 ## Reverse Translation
 The primary function in this package is the `reverse_translation` function, which assists a user in generating a nucleotide sequence from a supplied amino acid sequence. Users can select between three models of reverse translation depending on their needs described below. 
 
@@ -135,7 +121,7 @@ If we were to repeatedly reverse translate the amino acid "X" with the above CFT
  
 ```{r, message=FALSE}
 set.seed(1234)
-codons <- replicate(1000, {
+codons <- replicate(10, {
   reverse_translate(amino_acid_seq = "X", codon_tbl = minimal_freq_tbl,
                     limit = 0, model = "proportional")
 })
@@ -153,7 +139,7 @@ minimal_aa_seq
 Using the same code as before we can repeatedly reverse translate our test amino acid sequence.
 ```{r, message=FALSE}
 set.seed(1234)
-codon_string <- replicate(1000, {
+codon_string <- replicate(10, {
   reverse_translate(amino_acid_seq = minimal_aa_seq, codon_tbl = minimal_freq_tbl,
                     limit = 0 , model = "proportional")
 })
@@ -170,7 +156,7 @@ In some instances users might want the chance a given codon is selected to be ra
 
 ```{r, message=FALSE}
 set.seed(1234)
-codons <- replicate(1000, {
+codons <- replicate(10, {
   reverse_translate(amino_acid_seq = "X", codon_tbl = minimal_freq_tbl,
                     limit = 0, model = "equal")
 })
@@ -190,7 +176,7 @@ In this instance the ATG and AAC codons have the lowest proportion of GC content
 
 ```{r, message=FALSE}
 set.seed(1234)
-codons <- replicate(1000, {
+codons <- replicate(10, {
   reverse_translate(amino_acid_seq = "Z", codon_tbl = minimal_freq_tbl,
                     limit = 0, model = "gc_biased")
 })

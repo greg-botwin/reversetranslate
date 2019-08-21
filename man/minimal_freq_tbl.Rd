@@ -8,7 +8,7 @@
 \describe{
   \item{aa}{One letter abbreviation of the amino acid or * for Stop}
   \item{codon}{Three DNA nucleotides representing the amino acid.}
-  \item{prop}{The proportion the specific codon is present in the genome)}
+  \item{prop}{The proportion the specific codon per amino acid  is present in the genome)}
 }}
 \usage{
 minimal_freq_tbl

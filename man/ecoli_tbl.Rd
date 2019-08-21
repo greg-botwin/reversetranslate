@@ -4,11 +4,11 @@
 \name{ecoli_tbl}
 \alias{ecoli_tbl}
 \title{An Escherichia coli Codon Frequency Table.}
-\format{A data frame with 4 rows and 3 variables:
+\format{A data frame with 64 rows and 3 variables:
 \describe{
   \item{aa}{One letter abbreviation of the amino acid or * for Stop}
   \item{codon}{Three DNA nucleotides representing the amino acid.}
-  \item{prop}{The proportion the specific codon is present in the genome)}
+  \item{prop}{The proportion the specific codon per amino acid  is present in the genome)}
 }}
 \usage{
 ecoli_tbl

@@ -2,7 +2,6 @@
 
 export("%>%")
 export(.data)
-export(build_hive_codon_tbl)
 export(check_codon_table)
 export(check_limit)
 export(reverse_translate)
