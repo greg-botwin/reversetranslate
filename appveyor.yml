@@ -36,12 +36,25 @@ on_failure:
 
 environment:
   global:
-      WARNINGS_ARE_ERRORS: 1
-      R_ARCH: x64
-      USE_RTOOLS: true
+    WARNINGS_ARE_ERRORS: 1
 
   matrix:
-    - R_VERSION: release
+  - R_VERSION: devel
+    GCC_PATH: mingw_32
+
+  - R_VERSION: devel
+    R_ARCH: x64
+    GCC_PATH: mingw_64
+
+  - R_VERSION: release
+    R_ARCH: x64
+
+  - R_VERSION: stable
+
+  - R_VERSION: patched
+
+matrix:
+  fast_finish: true
 
 artifacts:
   - path: '*.Rcheck\**\*.log'
