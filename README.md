@@ -13,6 +13,8 @@ coverage](https://codecov.io/gh/greg-botwin/reversetranslate/branch/master/graph
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/reversetranslate)](https://cran.r-project.org/package=reversetranslate)
+[![AppVeyor build
+status](https://ci.appveyor.com/api/projects/status/github/greg-botwin/reversetranslate?branch=master&svg=true)](https://ci.appveyor.com/project/greg-botwin/reversetranslate)
 <!-- badges: end -->
 
 The goal of `reversetranslate` is to provide a set of R functions to
@@ -92,7 +94,7 @@ minimal_freq_tbl
 reverse_translate(amino_acid_seq = minimal_aa_seq, codon_tbl = minimal_freq_tbl,
                   limit = 0, model = "proportional")
 #> Properly formated Codon Frequency Table
-#> [1] "AAACCCGGGTTTGGGAAAAAATTTTTTAAC"
+#> [1] "GGGAAAAAATTTGGGCCCAAATTTTTTATG"
 ```
 
 ### Support

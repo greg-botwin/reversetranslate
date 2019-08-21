@@ -17,14 +17,14 @@ Suggests:
     covr,
     BiocManager,
     spelling,
-    Biostrings
+    Biostrings,
+    tidyr
 Imports: 
     dplyr,
     utils,
     stringr,
     magrittr,
     stats,
-    tidyr,
     rlang,
     readr
 VignetteBuilder: knitr

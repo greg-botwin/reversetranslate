@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 [![Codecov test coverage](https://codecov.io/gh/greg-botwin/reversetranslate/branch/master/graph/badge.svg)](https://codecov.io/gh/greg-botwin/reversetranslate?branch=master)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN status](https://www.r-pkg.org/badges/version/reversetranslate)](https://cran.r-project.org/package=reversetranslate)
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/greg-botwin/reversetranslate?branch=master&svg=true)](https://ci.appveyor.com/project/greg-botwin/reversetranslate)
 <!-- badges: end -->
 
 The goal of `reversetranslate` is to provide a set of R functions to assist users in reverse translating an amino acid sequence to DNA nucleotides.
