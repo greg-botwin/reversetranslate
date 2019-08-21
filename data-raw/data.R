@@ -22,8 +22,11 @@ hsapien_tbl <- hsapien_tbl %>%
   dplyr::select(-Division, -Assembly, -Taxid, -Species, -Organelle, -Translation.Table,
                 -X..CDS, -GC., -GC1., -GC2., -GC3.) %>%
   tidyr::gather(key = "codon", value = "n_codons", -X..Codons) %>%
-  dplyr::mutate(prop = n_codons/X..Codons) %>%
   dplyr::inner_join(., aa_names, by = "codon") %>%
+  dplyr::group_by(.data$aa) %>%
+  dplyr::mutate(aa_total = sum(n_codons)) %>%
+  dplyr::ungroup() %>%
+  dplyr::mutate(prop = n_codons/aa_total) %>%
   dplyr::select(codon, aa, prop)
 
 usethis::use_data(hsapien_tbl, overwrite = TRUE)
@@ -43,10 +46,12 @@ ecoli_tbl <- ecoli_tbl %>%
                 -X..CDS, -GC., -GC1., -GC2., -GC3.) %>%
   tidyr::gather(key = "codon", value = "n_codons_per_assembly", -X..Codons) %>%
   dplyr::group_by(codon) %>%
-  dplyr::summarise(n_codons = sum(n_codons_per_assembly),
-                   total_codons = sum(X..Codons)) %>%
-  dplyr::mutate(prop = n_codons/total_codons) %>%
+  dplyr::summarise(n_codons = sum(n_codons_per_assembly)) %>%
   dplyr::inner_join(., aa_names, by = "codon") %>%
+  dplyr::group_by(aa) %>%
+  dplyr::mutate(aa_total = sum(n_codons)) %>%
+  dplyr::ungroup() %>%
+  dplyr::mutate(prop = n_codons/aa_total) %>%
   dplyr::select(codon, aa, prop)
 
 usethis::use_data(ecoli_tbl, overwrite = TRUE)
