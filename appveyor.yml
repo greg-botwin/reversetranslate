@@ -41,7 +41,7 @@ environment:
       USE_RTOOLS: true
 
   matrix:
-    - R_VERSION: release, devel
+    - R_VERSION: release
 
 artifacts:
   - path: '*.Rcheck\**\*.log'
