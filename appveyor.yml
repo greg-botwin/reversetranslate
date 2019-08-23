@@ -29,12 +29,7 @@ environment:
 
   matrix:
 
-  - R_VERSION: release
-    R_ARCH: x64
-
-  - R_VERSION: stable
-
-  - R_VERSION: patched
+  - R_VERSION: 3.6
 
 matrix:
   fast_finish: true
