@@ -7,6 +7,11 @@ sudo: false
 r:
   - release
   - devel
+  - 3.5
+  - 3.4
+  - 3.3
+  - 3.2
+  - 3.1
 
 # We need to install BiocInstaller for testing Bioconductor packages
 bioc_required: true
