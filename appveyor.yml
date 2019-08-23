@@ -27,7 +27,7 @@ environment:
   global:
     WARNINGS_ARE_ERRORS: 1
 
-  R_VERSION: 3.6
+  R_VERSION: 3.6.0
 
 matrix:
   fast_finish: true
