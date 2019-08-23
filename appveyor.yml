@@ -10,14 +10,10 @@ init:
 install:
   ps: Bootstrap
 
-cache:
-  - C:\RLibrary
-
 # Adapt as necessary starting from here
 
 build_script:
   - travis-tool.sh install_deps
-  - travis-tool.sh install_bioc_deps
   - travis-tool.sh install_bioc Biostrings
 
 test_script:
