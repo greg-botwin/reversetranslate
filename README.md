@@ -52,9 +52,6 @@ The package currently maintains Codon Frequency Tables for:
   - Homo sapiens
   - Escherichia coli
 
-Other Codon Frequency Tables can be built from your organism of choice
-using the `build_codon_tbl` function.
-
 Additional details on package functionality can be found by viewing the
 package vignette.
 
@@ -94,7 +91,7 @@ minimal_freq_tbl
 reverse_translate(amino_acid_seq = minimal_aa_seq, codon_tbl = minimal_freq_tbl,
                   limit = 0, model = "proportional")
 #> Properly formated Codon Frequency Table
-#> [1] "GGGAAAAAATTTGGGCCCAAATTTTTTATG"
+#> [1] "AAAAAAAAATTTAAACCCCCCTTTTTTCCC"
 ```
 
 ### Support

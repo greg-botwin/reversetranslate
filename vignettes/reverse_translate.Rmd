@@ -172,7 +172,7 @@ For example, if we want to reverse translate the amino acid Z in a "gc_biased" f
 ```{r}
 minimal_freq_tbl
 ```
-In this instance the ATG and AAC codons have the lowest proportion of GC content of the 4 possible options. Now that the two low proportion codons are selected, a proportional model is run. We will again confirm this through simulating the reverse translation of the amino acid "Z" 1000 times and counting the returned codons. 
+In this instance the ATG and AAC codons have the lowest proportion of GC content of the 4 possible options. Now that the two low proportion codons are selected, a proportional model is run. We will again confirm this through simulating the reverse translation of the amino acid "Z" 10 times and counting the returned codons. 
 
 ```{r, message=FALSE}
 set.seed(1234)
