@@ -32,10 +32,6 @@ environment:
 
   R_VERSION: 3.6.0
 
-    matrix:
-    - BIOC_USE_DEVEL="TRUE"
-    - BIOC_USE_DEVEL="FALSE"
-
 matrix:
   fast_finish: true
 
