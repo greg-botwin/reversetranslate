@@ -12,8 +12,12 @@ install:
 
 # Adapt as necessary starting from here
 
+env:
+  matrix:
+    - BIOC_USE_DEVEL="TRUE"
+    - BIOC_USE_DEVEL="FALSE"
+
 build_script:
-  - travis-tool.sh install_deps
   - travis-tool.sh install_bioc Biostrings
 
 test_script:
